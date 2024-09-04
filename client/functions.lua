@@ -33,7 +33,7 @@ function showInfoMenu(id)
                 close = false
             },
         }
-        for k,v in pairs(identifiers) do
+        for k, v in pairs(identifiers) do
             for i = 1, #v, 1 do
                 options[#options + 1] = {label = v[i], description = locale('players')..locale('identifiers'), icon = 'circle-info', close = false}
             end
@@ -63,7 +63,7 @@ function showScoreboard()
             options = options,
             position = 'top-right',
             onClose = function(keyPressed)
-                lib.showMenu('fsg_scoreboard_main')
+                cleanupTags()  
             end,
         }, function(selected, scrollIndex, args)
             showInfoMenu(args.playerId)
@@ -113,9 +113,9 @@ displayTags = function()
     local playerPed = PlayerPedId()
     local playerCoords = GetEntityCoords(playerPed)
     for _, i in ipairs(GetActivePlayers()) do
-        local targetPed =  GetPlayerPed(i)
+        local targetPed = GetPlayerPed(i)
         local targetCoords = GetEntityCoords(targetPed)
-        local nametagString = ('ID: [%d]'):format(GetPlayerServerId(i))
+        local nametagString = ('[%d]'):format(GetPlayerServerId(i))
         if not scoreboardTags[i] or not IsMpGamerTagActive(scoreboardTags[i].tag) then
             scoreboardTags[i] = {
                 tag = CreateFakeMpGamerTag(targetPed, nametagString, false, false, 0),
